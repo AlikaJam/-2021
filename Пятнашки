@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Игра в 15</title>
+</head>
+<canvas id="table"></canvas>
+<body>
+<script type="text/javascript">
+  alert("Нажмите ОК, чтобы начать игру");
+  
+	let canvas = document.getElementById("table")
+	    canvas.width = 400;
+	    canvas.height = 400;
+	let context = canvas.getContext("2d");
+	    context.fillStyle = "#CB8C1D";
+
+	let numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+	for (let i = 0; i < 10; i++) {
+		numbers.sort(()=> Math.random() - 0.5)
+	}
+
+	let draw = function(x, y, n) {
+		if (n === 0) {
+			context.fillStyle = "white";
+		} else {
+			context.fillStyle = "#CB8C1D";
+		}
+
+		context.fillRect(x + 15, y + 15, 90, 90)
+
+		context.font = "50px Arial"
+		context.fillStyle = "white"
+
+		if (n < 10) {
+			context.fillText(n, x + 45, y + 80)
+		} else {
+			context.fillText(n, x + 25, y + 80)
+		}
+	}
+
+	let cells = function(pos, n) {
+		switch (pos) {
+			case 0:
+				draw(0, 0, n)
+				break
+
+			case 1:
+				draw(100, 0, n)
+				break
+
+			case 2:
+				draw(200, 0, n)
+				break
+
+			case 3:
+				draw(300, 0, n)
+				break
+
+			case 4:
+				draw(0, 100, n)
+				break
+
+			case 5:
+				draw(100, 100, n)
+				break
+
+			case 6:
+				draw(200, 100, n)
+				break
+
+			case 7:
+				draw(300, 100, n)
+				break
+
+			case 8:
+				draw(0, 200, n)
+				break
+
+			case 9:
+				draw(100, 200, n)
+				break
+
+			case 10:
+				draw(200, 200, n)
+				break
+
+			case 11:
+				draw(300, 200, n)
+				break
+
+			case 12:
+				draw(0, 300, n)
+				break
+
+			case 13:
+				draw(100, 300, n)
+				break
+
+			case 14:
+				draw(200, 300, n)
+				break
+
+			case 15:
+				draw(300, 300, n)
+				break
+		}
+	}
+
+	for (let i = 0; i <= 15; i++) {
+		cells(i, numbers[i])
+	}
+
+	let checkCells = function(eventX) {
+		if (eventX < 110) {
+			return 1
+		}
+
+		if (eventX < 210) {
+			return 2
+		}
+
+		if (eventX < 310) {
+			return 3
+		}
+
+		if (eventX < 410) {
+			return 4
+		}
+	}
+
+	canvas.addEventListener("click", function(event) {
+
+		if (event.clientY < 100) {
+
+			let cell = checkCells(event.clientX)
+
+			switch(cell) {
+				case 1:
+					var clickPos = 0
+					break
+
+				case 2:
+					var clickPos = 1
+					break
+
+				case 3:
+					var clickPos = 2
+					break
+
+				case 4:
+					var clickPos = 3
+					break
+			}
+		}
+
+		if (event.clientY > 110 && event.clientY < 200) {
+			let cell = checkCells(event.clientX)
+
+			switch(cell) {
+				case 1:
+					var clickPos = 4
+					break
+
+				case 2:
+					var clickPos = 5
+					break
+
+				case 3:
+					var clickPos = 6
+					break
+
+				case 4:
+					var clickPos = 7
+					break
+			}
+		}
+
+		if (event.clientY > 200 && event.clientY < 300) {
+			let cell = checkCells(event.clientX)
+
+			switch(cell){
+				case 1:
+					var clickPos = 8
+					break
+
+				case 2:
+					var clickPos = 9
+					break
+
+				case 3:
+					var clickPos = 10
+					break
+
+				case 4:
+					var clickPos = 11
+					break
+			}
+		}
+
+		if (event.clientY > 300 && event.clientY < 400) {
+			let cell = checkCells(event.clientX)
+
+			switch(cell) {
+				case 1:
+					var clickPos = 12
+					break
+
+				case 2:
+					var clickPos = 13
+					break
+
+				case 3:
+					var clickPos = 14
+					break
+
+				case 4:
+					var clickPos = 15
+					break
+			}
+		}
+
+		if (numbers[clickPos - 4] === 0) {
+			numbers[clickPos - 4] = numbers[clickPos]
+			numbers[clickPos] = 0
+
+			for (let i = 0; i <=15; i++) {
+				cells(i, numbers[i])
+			}
+		}
+
+		if (numbers[clickPos + 4] === 0) {
+			numbers[clickPos + 4] = numbers[clickPos]
+			numbers[clickPos] = 0
+
+			for (let i = 0; i <=15; i++) {
+				cells(i, numbers[i])
+			}
+		}
+
+		if (numbers[clickPos + 1] === 0 && clickPos !== 3
+			&& clickPos !== 7 && clickPos !== 11) {
+			numbers[clickPos + 1] = numbers[clickPos]
+			numbers[clickPos] = 0
+
+			for (let i = 0; i <=15; i++) {
+				cells(i, numbers[i])
+			}
+		}
+
+		if (numbers[clickPos - 1] === 0 && clickPos !== 4
+			&& clickPos !== 8 && clickPos !== 12) {
+			numbers[clickPos - 1] = numbers[clickPos]
+			numbers[clickPos] = 0
+
+			for (let i = 0; i <=15; i++) {
+				cells(i, numbers[i])
+			}
+		}
+	}
+)
+
+</script>
+</body>
+</html>
