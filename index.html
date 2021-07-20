@@ -8,7 +8,7 @@
 <body>
 <script type="text/javascript">
   alert("Нажмите ОК, чтобы начать игру");
-  
+
 	let canvas = document.getElementById("table")
 	    canvas.width = 400;
 	    canvas.height = 400;
@@ -112,19 +112,19 @@
 	}
 
 	let checkCells = function(eventX) {
-		if (eventX < 110) {
+		if (eventX < 100) {
 			return 1
 		}
 
-		if (eventX < 210) {
+		if (eventX < 200) {
 			return 2
 		}
 
-		if (eventX < 310) {
+		if (eventX < 300) {
 			return 3
 		}
 
-		if (eventX < 410) {
+		if (eventX < 400) {
 			return 4
 		}
 	}
@@ -154,7 +154,7 @@
 			}
 		}
 
-		if (event.clientY > 110 && event.clientY < 200) {
+		if (event.clientY > 100 && event.clientY < 200) {
 			let cell = checkCells(event.clientX)
 
 			switch(cell) {
@@ -257,8 +257,7 @@
 				cells(i, numbers[i])
 			}
 		}
-	}
-)
+	})
 
 </script>
 </body>
